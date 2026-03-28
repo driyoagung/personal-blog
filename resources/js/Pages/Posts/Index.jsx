@@ -27,6 +27,7 @@ const Index = () => {
     const { posts } = usePage().props;
     const [sorting, setSorting] = useState([]);
     const [globalFilter, setGlobalFilter] = useState("");
+    const [deletePostId, setDeletePostId] = useState(null);
 
     const columns = [
         {
@@ -84,11 +85,7 @@ const Index = () => {
                         <Button 
                             variant="destructive" 
                             size="sm" 
-                            onClick={() => {
-                                if(confirm('Are you sure you want to delete this post?')) {
-                                    router.delete(`/posts/${post.id}`);
-                                }
-                            }}
+                            onClick={() => setDeletePostId(post.id)}
                         >
                             <Trash2 className="h-4 w-4 mr-1" /> Delete
                         </Button>
@@ -212,6 +209,30 @@ const Index = () => {
                     </div>
                 </CardContent>
             </Card>
+
+            {/* Custom Delete Confirmation Modal */}
+            {deletePostId && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-background/80 backdrop-blur-sm">
+                    <div className="relative w-full max-w-sm p-4 animate-in fade-in zoom-in-95 duration-200">
+                        <div className="relative rounded-lg bg-card text-card-foreground shadow-lg border border-border">
+                            <div className="p-6">
+                                <h3 className="text-lg font-semibold tracking-tight">Delete Post</h3>
+                                <p className="mt-2 text-sm text-muted-foreground">
+                                    Are you sure you want to delete this post? This action cannot be undone.
+                                </p>
+                                <div className="mt-6 flex justify-end gap-3">
+                                    <Button variant="outline" onClick={() => setDeletePostId(null)}>Cancel</Button>
+                                    <Button variant="destructive" onClick={() => {
+                                        router.delete(`/posts/${deletePostId}`, {
+                                            onSuccess: () => setDeletePostId(null)
+                                        });
+                                    }}>Delete</Button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

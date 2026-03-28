@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, usePage } from '@inertiajs/react';
 import { LayoutDashboard, FileText, Menu, X, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function DashboardLayout({ children }) {
-    const { url } = usePage();
+    const { url, props } = usePage();
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+    // Watch for backend flash messages and trigger toastify
+    useEffect(() => {
+        if (props.flash?.success) {
+            toast.success(props.flash.success, { theme: 'dark' });
+        }
+        if (props.flash?.error) {
+            toast.error(props.flash.error, { theme: 'dark' });
+        }
+    }, [props.flash]);
 
     const navItems = [
         { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
@@ -37,7 +49,10 @@ export default function DashboardLayout({ children }) {
     );
 
     return (
-        <div className="flex min-h-screen w-full flex-col bg-background md:flex-row">
+        <div className="flex min-h-screen w-full flex-col bg-background md:flex-row text-foreground">
+            {/* Global Toast Notifications Container */}
+            <ToastContainer position="top-right" />
+
             {/* Mobile Header */}
             <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 md:hidden">
                 <Button 

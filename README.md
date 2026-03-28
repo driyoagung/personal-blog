@@ -15,6 +15,7 @@ This starter template jumps straight over the boilerplate and equips you with a 
 - **Advanced Tables**: Data tables heavily optimized with `@tanstack/react-table` displaying Global Search/Filtering and Column Sorting.
 - **Persistent Layouts**: A responsive `DashboardLayout` featuring a collapsible sidebar navigation (using `lucide-react` icons) that persists state beautifully without page reloads.
 - **Functional CRUD**: Comes with a working `Post` CRUD module to demonstrate exactly how the components, Layouts, routing, and Tanstack Table come together.
+- **Toast Notifications**: Global notifications using `react-toastify`, instantly triggered by standard Laravel `->with('success', ...)` session flashes (handled centrally via Inertia middleware).
 
 ## 🚀 Getting Started
 

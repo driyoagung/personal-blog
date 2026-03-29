@@ -8,8 +8,26 @@ Route::get('/', function () {
     return Inertia::render('Home');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+Route::get('/login', function () {
+    return Inertia::render('Auth/Login');
+});
+
+Route::prefix('admin')->group(function () {
+    Route::get('dashboard', function () {
+        return Inertia::render('Admin/Dashboard');
+    });
+    Route::get('posts', function () {
+        return Inertia::render('Admin/Posts');
+    });
+    Route::get('projects', function () {
+        return Inertia::render('Admin/Projects');
+    });
+    Route::get('categories', function () {
+        return Inertia::render('Admin/Categories');
+    });
+    Route::get('settings', function () {
+        return Inertia::render('Admin/Settings');
+    });
 });
 
 Route::get('/contact', function () {

@@ -1,8 +1,7 @@
 import { Head, Link } from '@inertiajs/react';
 import { motion } from 'framer-motion';
 import Navbar from '@/Components/Navbar';
-
-export default function Home() {
+import StarsBackground from '@/Components/StarsBackground';export default function Home() {
     const fadeUpVariants = {
         hidden: { opacity: 0, y: 30 },
         visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -19,9 +18,20 @@ export default function Home() {
                 `}</style>
                 <Navbar />
 
+                {/* Stars Background Effects */}
+                <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 h-[800px] mask-image-gradient">
+                    <style>{`
+                        .mask-image-gradient {
+                            -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+                            mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+                        }
+                    `}</style>
+                    <StarsBackground />
+                </div>
+
                 {/* Hero Section */}
                 <motion.header 
-                    className="pt-48 pb-32 px-10 text-center max-w-[1200px] mx-auto"
+                    className="relative pt-48 pb-32 px-10 text-center max-w-[1200px] mx-auto z-10"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
